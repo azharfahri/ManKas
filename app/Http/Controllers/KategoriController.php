@@ -25,7 +25,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        //
+        return view('kategori.create');
     }
 
     /**
@@ -36,7 +36,16 @@ class KategoriController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required',
+            'deskripsi' => 'required',
+        ]);
+        $kategori = new kategori();
+        $kategori->nama_kategori = $request->nama_kategori ;
+        $kategori->deskripsi = $request->deskripsi ;
+        $kategori->save();
+
+        return redirect()->route('kategori.index')->with('success','Data Berhasil Ditambahkan');
     }
 
     /**
@@ -47,7 +56,8 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        //
+        $kategori =kategori::FindOrFail($id);
+        return view('kategori.show', compact('kategori'));
     }
 
     /**
@@ -58,7 +68,8 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        //
+        $kategori =kategori::FindOrFail($id);
+        return view('kategori.edit', compact('kategori'));
     }
 
     /**
@@ -70,7 +81,16 @@ class KategoriController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'nama_kategori' => 'required',
+            'deskripsi' => 'required',
+        ]);
+        $kategori = kategori::findOrFail($id);
+        $kategori->nama_kategori = $request->nama_kategori ;
+        $kategori->deskripsi = $request->deskripsi ;
+        $kategori->save();
+
+        return redirect()->route('kategori.index')->with('success','Data Berhasil Dirubah');
     }
 
     /**
@@ -81,6 +101,8 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $kategori = kategori::findOrFail($id);
+        $kategori->delete();
+        return redirect()->route('kategori.index')->with('success','Data Berhasil Dihapus');
     }
 }
