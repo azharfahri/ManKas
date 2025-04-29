@@ -19,13 +19,14 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'username',
         'email',
+        'jenis_kelamin',
+        'alamat',
+        'notelp',
         'password',
     ];
 
-    public function transaksi (){
-        return $this->hasMany(transaksi::class);
-    }
 
     /**
      * The attributes that should be hidden for serialization.

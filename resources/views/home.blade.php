@@ -19,9 +19,9 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
   <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-  <link rel="icon" type="image/jpg" href="{{ asset('admin/gambar/mankas1.jpg')}}">
+  <link rel="icon" type="image/jpg" href="{{ asset('admin/gambar/dana1.jpg')}}">
   <title>
-    ManKas (Manajemen Kas)
+    Dompetin (Laporan Keuangan)
   </title>
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -43,7 +43,7 @@
 <body class="g-sidenav-show   bg-gray-100">
   <div class="min-height-300 bg-dark position-absolute w-100"></div>
 
-  @include('layouts.part.navbar')
+  @include('layouts.part.sidebar')
 
   <main class="main-content position-relative border-radius-lg ">
     <!-- Navbar -->

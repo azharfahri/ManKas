@@ -1,6 +1,9 @@
 <?php
 
+use App\Http\Controllers\DanaController;
 use App\Http\Controllers\KategoriController;
+use App\Http\Controllers\PemasukanController;
+use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,9 +23,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('kategori', KategoriController::class);
 
-Route::resource('transaksi', TransaksiController::class);
+
+Route::resource('dana', DanaController::class);
+
+Route::resource('pemasukan', PemasukanController::class);
+
+Route::resource('pengeluaran', PengeluaranController::class);
+
+
 
 Auth::routes();
 

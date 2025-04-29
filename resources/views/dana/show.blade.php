@@ -5,7 +5,7 @@
     <div class="row justify-content-center">
         <div class="col-md-12">
             <d class="card">
-                <div class="card-header">Data Kategori</div>
+                <div class="card-header">Data Dompet</div>
                 <div class="card-body">
                     @if ($errors->any())
                 <div class="alert alert-danger">
@@ -16,19 +16,19 @@
                     </ul>
                 </div>
             @endif
-            <form action="{{ route('kategori.update', $kategori->id) }}" method="POST" enctype="multipart/form-data">
+            <form action="{{ route('dana.update', $dana->id) }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
                 <div class="form-group mb-3">
-                <label class="form-label">Nama Kategori</label>
-                <input type="text" placeholder="" value="{{ $kategori->nama_kategori }}" name="nama_kategori" class="form-control" disabled>
+                <label class="form-label">Nama Dompet</label>
+                <input type="text" placeholder="" value="{{ $dana->nama_dana }}" name="nama_dana" class="form-control" disabled>
                 </div>
                 <div class="form-group mb-3">
-                    <label class="form-label">Deskripsi</label>
-                    <input type="text" placeholder="" value="{{ $kategori->deskripsi }}" name="deskripsi" class="form-control" disabled>
+                    <label class="form-label">saldo</label>
+                    <input type="text" placeholder="" value="{{ $dana->saldo }}" name="saldo" class="form-control" disabled>
                 </div>
                 
-                <a href="{{ route('kategori.index') }}" class="btn btn-danger">Back</a>
+                <a href="{{ route('dana.index') }}" class="btn btn-danger">Back</a>
                 
             </form>
                 </div>

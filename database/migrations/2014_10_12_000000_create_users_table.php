@@ -16,8 +16,12 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('name');
+            $table->string('username');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
+            $table->string('jenis_kelamin');
+            $table->string('alamat');
+            $table->string('notelp');
             $table->string('password');
             //admin
             $table->boolean('is_admin')->default(0);

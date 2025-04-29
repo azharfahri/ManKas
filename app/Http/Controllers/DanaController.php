@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\kategori;
+use App\Models\dana;
 
-class KategoriController extends Controller
+class DanaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,10 +16,11 @@ class KategoriController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
-        $kategori = kategori::all();
-        return view('kategori.index', compact('kategori'));
+        $dana = dana::all();
+        return view('dana.index', compact('dana'));
     }
 
     /**
@@ -29,7 +30,7 @@ class KategoriController extends Controller
      */
     public function create()
     {
-        return view('kategori.create');
+        return view('dana.create');
     }
 
     /**
@@ -41,15 +42,15 @@ class KategoriController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'nama_kategori' => 'required',
-            'deskripsi' => 'required',
+            'nama_dana' => 'required',
+            'saldo' => 'required',
         ]);
-        $kategori = new kategori();
-        $kategori->nama_kategori = $request->nama_kategori ;
-        $kategori->deskripsi = $request->deskripsi ;
-        $kategori->save();
+        $dana = new dana();
+        $dana->nama_dana = $request->nama_dana ;
+        $dana->saldo = $request->saldo ;
+        $dana->save();
 
-        return redirect()->route('kategori.index')->with('success','Data Berhasil Ditambahkan');
+        return redirect()->route('dana.index')->with('success','Data Berhasil Ditambahkan');
     }
 
     /**
@@ -60,8 +61,8 @@ class KategoriController extends Controller
      */
     public function show($id)
     {
-        $kategori =kategori::FindOrFail($id);
-        return view('kategori.show', compact('kategori'));
+        $dana =dana::FindOrFail($id);
+        return view('dana.show', compact('dana'));
     }
 
     /**
@@ -72,8 +73,8 @@ class KategoriController extends Controller
      */
     public function edit($id)
     {
-        $kategori =kategori::FindOrFail($id);
-        return view('kategori.edit', compact('kategori'));
+        $dana =dana::FindOrFail($id);
+        return view('dana.edit', compact('dana'));
     }
 
     /**
@@ -86,15 +87,15 @@ class KategoriController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'nama_kategori' => 'required',
-            'deskripsi' => 'required',
+            'nama_dana' => 'required',
+            'saldo' => 'required',
         ]);
-        $kategori = kategori::findOrFail($id);
-        $kategori->nama_kategori = $request->nama_kategori ;
-        $kategori->deskripsi = $request->deskripsi ;
-        $kategori->save();
+        $dana = dana::findOrFail($id);
+        $dana->nama_dana = $request->nama_dana ;
+        $dana->saldo = $request->saldo ;
+        $dana->save();
 
-        return redirect()->route('kategori.index')->with('success','Data Berhasil Dirubah');
+        return redirect()->route('dana.index')->with('success','Data Berhasil Dirubah');
     }
 
     /**
@@ -105,8 +106,8 @@ class KategoriController extends Controller
      */
     public function destroy($id)
     {
-        $kategori = kategori::findOrFail($id);
-        $kategori->delete();
-        return redirect()->route('kategori.index')->with('success','Data Berhasil Dihapus');
+        $dana = dana::findOrFail($id);
+        $dana->delete();
+        return redirect()->route('dana.index')->with('success','Data Berhasil Dihapus');
     }
 }
