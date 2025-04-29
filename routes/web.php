@@ -6,6 +6,7 @@ use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Middleware\isAdmin;
 
 
 /*
@@ -23,13 +24,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::prefix('admin')->middleware('auth',isAdmin::class)->group(function(){
+    Route::resource('dana', DanaController::class);
+
+    Route::resource('pemasukan', PemasukanController::class);
+
+    Route::resource('pengeluaran', PengeluaranController::class);
+});
 
 
-Route::resource('dana', DanaController::class);
-
-Route::resource('pemasukan', PemasukanController::class);
-
-Route::resource('pengeluaran', PengeluaranController::class);
 
 
 

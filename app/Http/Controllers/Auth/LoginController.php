@@ -43,6 +43,6 @@ class LoginController extends Controller
     {
         return back()
             ->withInput($request->only('email'))
-            ->with('error', 'Email atau password kamu salah, cintakuu~');
+            ->with('error', 'Email atau password salah');
     }
 }
