@@ -21,7 +21,7 @@ use App\Http\Middleware\isAdmin;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.register');
 });
 
 Route::prefix('admin')->middleware('auth',isAdmin::class)->group(function(){
@@ -39,3 +39,4 @@ Route::prefix('admin')->middleware('auth',isAdmin::class)->group(function(){
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/profil', [App\Http\Controllers\ProfilController::class, 'index'])->name('profil');

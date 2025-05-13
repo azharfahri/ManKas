@@ -17,6 +17,7 @@ return new class extends Migration
             $table->bigIncrements('id');
             $table->string('nama_dana');
             $table->integer('saldo');
+            $table->date('tanggal');
             $table->timestamps();
         });
     }

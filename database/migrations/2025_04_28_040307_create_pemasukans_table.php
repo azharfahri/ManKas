@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('pemasukans', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('tipe')->default('pemasukan');
             $table->string('deskripsi');
             $table->integer('jumlah');
             $table->foreign('id_dana')->references('id')->on('danas')->onDelete('cascade');

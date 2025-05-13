@@ -44,10 +44,12 @@ class DanaController extends Controller
         $request->validate([
             'nama_dana' => 'required',
             'saldo' => 'required',
+            'tanggal' => 'required',
         ]);
         $dana = new dana();
         $dana->nama_dana = $request->nama_dana ;
         $dana->saldo = $request->saldo ;
+        $dana->tanggal = $request->tanggal ;
         $dana->save();
 
         return redirect()->route('dana.index')->with('success','Data Berhasil Ditambahkan');
@@ -89,10 +91,12 @@ class DanaController extends Controller
         $request->validate([
             'nama_dana' => 'required',
             'saldo' => 'required',
+            'tanggal' => 'required',
         ]);
         $dana = dana::findOrFail($id);
         $dana->nama_dana = $request->nama_dana ;
         $dana->saldo = $request->saldo ;
+        $dana->tanggal = $request->tanggal ;
         $dana->save();
 
         return redirect()->route('dana.index')->with('success','Data Berhasil Dirubah');

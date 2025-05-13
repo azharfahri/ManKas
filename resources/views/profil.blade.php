@@ -40,12 +40,13 @@
     <link href="{{ asset('admin/css/nucleo-svg.css') }}" rel="stylesheet">
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
-    <div class="min-height-300 bg-dark position-absolute w-100"></div>
-
+<body class="g-sidenav-show bg-gray-100">
+    <div class="position-absolute w-100 min-height-300 top-0"
+        style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/profile-layout-header.jpg'); background-position-y: 50%;">
+        <span class="mask bg-primary opacity-6"></span>
+    </div>
     @include('layouts.part.sidebar')
-
-    <main class="main-content position-relative border-radius-lg ">
+    <div class="main-content position-relative max-height-vh-100 h-100">
         <!-- Navbar -->
         <nav class="navbar navbar-main navbar-expand-lg px-0 mx-4 shadow-none border-radius-xl " id="navbarBlur"
             data-scroll="false">
@@ -54,18 +55,16 @@
                     <ol class="breadcrumb bg-transparent mb-0 pb-0 pt-1 px-0 me-sm-6 me-5">
                         <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white"
                                 href="{{ route('home') }}">Halaman</a></li>
-                        <li class="breadcrumb-item text-sm"><a class="opacity-5 text-white"
-                                href="{{ route('pengeluaran.index') }}">Pengeluaran</a></li>
-                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Edit Data</li>
+                        <li class="breadcrumb-item text-sm text-white active" aria-current="page">Profile</li>
                     </ol>
-                    <h6 class="font-weight-bolder text-white mb-0">Data Pengeluaran</h6>
+                    <h6 class="font-weight-bolder text-white mb-0">Profile anda</h6>
                 </nav>
                 <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
                     <ul class="navbar-nav justify-content-end w-100">
 
                         <li class="nav-item dropdown pe-2 d-flex align-items-center ms-auto">
-                            <a href="#" class="nav-link text-white p-0" id="dropdownUser" data-bs-toggle="dropdown"
-                                aria-expanded="false">
+                            <a href="#" class="nav-link text-white p-0" id="dropdownUser"
+                                data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa fa-user me-sm-1 text-white"></i>
                                 <span class="d-sm-inline d-none">{{ Auth::user()->name }}</span>
                             </a>
@@ -93,58 +92,57 @@
         </nav>
         <!-- End Navbar -->
         <div class="container-fluid py-4">
-            <div class="col-md-12">
-                <d class="card">
-                    <div class="card-header pb-0">
-                        <h6>Edit Data Pengeluaran</h6>
+            <div class="row justify-content-center">
+                <div class="col-md-9 col-lg-5">
+                    <div class="card card-profile">
+                        <img src="{{ asset('admin/img/bg-profile.jpg') }}" alt="Image placeholder"
+                            class="card-img-top">
+
+                        <div class="row justify-content-center">
+                            <div class="col-4 col-lg-4 order-lg-2">
+                                <div class="mt-n4 mt-lg-n6 mb-4 mb-lg-0 text-center">
+                                    <a href="javascript:;">
+                                        <img src="{{ asset('admin/img/team-2.jpg') }}"
+                                            class="rounded-circle img-fluid border border-2 border-white profile-pic">
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+
+
+
+                        <div class="card-body pt-0">
+
+
+                            <div class="text-center mt-4">
+                                <h5>
+                                    {{ Auth::user()->name }}
+                                </h5>
+                                <div class="h6 font-weight-300">
+                                    <i class="ni location_pin mr-2"></i>{{ Auth::user()->alamat }}
+                                </div>
+                                <div class="h6 mt-4">
+                                    <i class="ni business_briefcase-24 mr-2"></i>{{ Auth::user()->jenis_kelamin }}
+                                </div>
+                                <div>
+                                    <i class="ni education_hat mr-2"></i>{{ Auth::user()->notelp }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-                        <form action="{{ route('pengeluaran.update', $pengeluaran->id) }}" method="POST"
-                            enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            <div class="form-group mb-3">
-                                <label class="form-label">Deskripsi</label>
-                                <input type="text" placeholder="Masukan deskripsi keuangan"
-                                    value="{{ $pengeluaran->deskripsi }}" name="deskripsi" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label">Jumlah</label>
-                                <input type="text" placeholder="Masukan jumlah " value="{{ $pengeluaran->jumlah }}"
-                                    name="jumlah" class="form-control">
-                            </div>
-                            <div class="form-group mb-3">
-                                <label class="form-label">Nama Dompet</label>
-                                <select class="form-control" name="id_dana">
-                                    @foreach ($dana as $data)
-                                        <option value="{{ $data->id }}"
-                                            {{ $data->id == $pengeluaran->id_dana ? 'selected' : '' }}>
-                                            {{ $data->nama_dana }}</option>
-                                    @endforeach
-                                </select>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary">Simpan</button>
-
-                        </form>
-                    </div>
-
-
+                </div>
             </div>
         </div>
 
+        <style>
+            .profile-pic {
+                max-width: 150px;
+                margin: 0 auto;
+                display: block;
+            }
+        </style>
 
-        </div>
-    </main>
+    </div>
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-light position-fixed px-3 py-2">
             <i class="fa fa-cog py-2"> </i>
@@ -218,94 +216,14 @@
         </div>
     </div>
     <!--   Core JS Files   -->
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+    <script src="../assets/js/plugins/perfect-scrollbar.min.js"></script>
+    <script src="../assets/js/plugins/smooth-scrollbar.min.js"></script>
     <script src="{{ asset('admin/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('admin/js/core/bootstrap.min.js') }}"></script>
     <script src="{{ asset('admin/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('admin/js/plugins/smooth-scrollbar.min.js') }}"></script>
-    <script src="{{ asset('admin/js/plugins/chartjs.min.js') }}"></script>
-    <script>
-        var ctx1 = document.getElementById("chart-line").getContext("2d");
-
-        var gradientStroke1 = ctx1.createLinearGradient(0, 230, 0, 50);
-
-        gradientStroke1.addColorStop(1, 'rgba(94, 114, 228, 0.2)');
-        gradientStroke1.addColorStop(0.2, 'rgba(94, 114, 228, 0.0)');
-        gradientStroke1.addColorStop(0, 'rgba(94, 114, 228, 0)');
-        new Chart(ctx1, {
-            type: "line",
-            data: {
-                labels: ["Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
-                datasets: [{
-                    label: "Mobile apps",
-                    tension: 0.4,
-                    borderWidth: 0,
-                    pointRadius: 0,
-                    borderColor: "#5e72e4",
-                    backgroundColor: gradientStroke1,
-                    borderWidth: 3,
-                    fill: true,
-                    data: [50, 40, 300, 220, 500, 250, 400, 230, 500],
-                    maxBarThickness: 6
-
-                }],
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: {
-                    legend: {
-                        display: false,
-                    }
-                },
-                interaction: {
-                    intersect: false,
-                    mode: 'index',
-                },
-                scales: {
-                    y: {
-                        grid: {
-                            drawBorder: false,
-                            display: true,
-                            drawOnChartArea: true,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            padding: 10,
-                            color: '#fbfbfb',
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                    x: {
-                        grid: {
-                            drawBorder: false,
-                            display: false,
-                            drawOnChartArea: false,
-                            drawTicks: false,
-                            borderDash: [5, 5]
-                        },
-                        ticks: {
-                            display: true,
-                            color: '#ccc',
-                            padding: 20,
-                            font: {
-                                size: 11,
-                                family: "Open Sans",
-                                style: 'normal',
-                                lineHeight: 2
-                            },
-                        }
-                    },
-                },
-            },
-        });
-    </script>
     <script>
         var win = navigator.platform.indexOf('Win') > -1;
         if (win && document.querySelector('#sidenav-scrollbar')) {
@@ -321,8 +239,6 @@
     <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
 
     <script src="{{ asset('admin/js/argon-dashboard.min.js') }}"></script>
-    <script src="{{ asset('admin/js/argon-dashboard.js') }}"></script>
-    <script src="{{ asset('admin/js/argon-dashboard.js.map') }}"></script>
 </body>
 
 </html>

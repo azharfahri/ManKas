@@ -1,13 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\dana;
-use App\Models\pengeluaran;
-use App\Models\pemasukan;
+use App\Models\User;
 
 use Illuminate\Http\Request;
 
-class HomeController extends Controller
+class ProfilController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -26,16 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $dana = dana::all();
-        $pemasukan = pemasukan::all();
-        $pengeluaran = pengeluaran::all();
-
-    
-
-        return view('home', compact('dana','pemasukan','pengeluaran'));
+        $user = User::all();
+        return view('profil', compact('user'));
 
     }
-
-
-
 }
