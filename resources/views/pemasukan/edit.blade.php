@@ -132,7 +132,10 @@
                                     @endforeach
                                 </select>
                             </div>
-
+                            <div class="form-group mb-3">
+                                <label class="form-label">Tanggal</label>
+                                <input type="date" placeholder="" value="{{ $pemasukan->tanggal }}" name="tanggal" class="form-control">
+                            </div>
                             <button type="submit" class="btn btn-primary">Simpan</button>
 
                         </form>

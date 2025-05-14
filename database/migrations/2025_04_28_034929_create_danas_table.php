@@ -18,6 +18,8 @@ return new class extends Migration
             $table->string('nama_dana');
             $table->integer('saldo');
             $table->date('tanggal');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('id_user');
             $table->timestamps();
         });
     }

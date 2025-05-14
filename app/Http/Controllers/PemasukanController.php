@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\dana;
 use App\Models\pemasukan;
+use Illuminate\Support\Facades\Auth;
+
 
 class PemasukanController extends Controller
 {
@@ -19,8 +21,8 @@ class PemasukanController extends Controller
     }
     public function index()
     {
-        $pemasukan = pemasukan::all();
-        $dana = dana::all();
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pemasukan = pemasukan::where('id_user', Auth::id())->get();
         return view('pemasukan.index', compact('dana','pemasukan'));
     }
 
@@ -31,8 +33,8 @@ class PemasukanController extends Controller
      */
     public function create()
     {
-        $pemasukan = pemasukan::all();
-        $dana = dana::all();
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pemasukan = pemasukan::where('id_user', Auth::id())->get();
         return view('pemasukan.create', compact('dana','pemasukan'));
     }
 
@@ -43,20 +45,32 @@ class PemasukanController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function store(Request $request)
-    {
-        $request->validate([
-            'deskripsi' => 'required',
-            'jumlah' => 'required',
-            'id_dana' => 'required',
-        ]);
-        $pemasukan = new pemasukan();
-        $pemasukan->deskripsi= $request->deskripsi ;
-        $pemasukan->jumlah = $request->jumlah ;
-        $pemasukan->id_dana = $request->id_dana ;
-        $pemasukan->save();
+{
+    $request->validate([
+        'deskripsi' => 'required',
+        'jumlah' => 'required',
+        'id_dana' => 'required',
+        'tanggal' => 'required'
+    ]);
 
-        return redirect()->route('pemasukan.index')->with('success','Data Berhasil Ditambahkan');
-    }
+
+    $pemasukan = new Pemasukan();
+    $pemasukan->deskripsi = $request->deskripsi;
+    $pemasukan->jumlah = $request->jumlah;
+    $pemasukan->id_dana = $request->id_dana;
+    $pemasukan->tanggal = $request->tanggal;
+    $pemasukan->id_user = Auth::id();
+    $pemasukan->created_at = now();
+    $pemasukan->save();
+
+
+    $dana = Dana::findOrFail($request->id_dana);
+    $dana->saldo += $request->jumlah;
+    $dana->save();
+
+    return redirect()->route('pemasukan.index')->with('success', 'Data Berhasil Ditambahkan');
+}
+
 
     /**
      * Display the specified resource.
@@ -66,9 +80,9 @@ class PemasukanController extends Controller
      */
     public function show($id)
     {
-        $pemasukan =pemasukan::FindOrFail($id);
-        $dana = dana::all();
-        
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pemasukan = pemasukan::where('id_user', Auth::id())->get();
+
         return view('pemasukan.show', compact('pemasukan','dana'));
     }
 
@@ -80,9 +94,9 @@ class PemasukanController extends Controller
      */
     public function edit($id)
     {
-        $pemasukan =pemasukan::FindOrFail($id);
-        $dana = dana::all();
-        
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pemasukan = pemasukan::where('id_user', Auth::id())->get();
+
         return view('pemasukan.edit', compact('pemasukan','dana'));
     }
 
@@ -99,12 +113,16 @@ class PemasukanController extends Controller
             'deskripsi' => 'required',
             'jumlah' => 'required',
             'id_dana' => 'required',
+            'tanggal' => 'required'
         ]);
-        $pemasukan =pemasukan::FindOrFail($id);
+        $pemasukan =pemasukan::where('id',$id)->where('id_user', Auth::id())->firstorfail();
         $pemasukan->deskripsi= $request->deskripsi ;
         $pemasukan->jumlah = $request->jumlah ;
         $pemasukan->id_dana = $request->id_dana ;
+        $pemasukan->tanggal = $request->tanggal;
         $pemasukan->save();
+
+
 
         return redirect()->route('pemasukan.index')->with('success','Data Berhasil Diubah');
     }
@@ -117,8 +135,8 @@ class PemasukanController extends Controller
      */
     public function destroy($id)
     {
-        $pemasukan = pemasukan::findOrFail($id);
-        $pemasukan->delete();
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pemasukan = pemasukan::where('id_user', Auth::id())->get();
         return redirect()->route('pemasukan.index')->with('success','Data Berhasil Dihapus');
     }
 }

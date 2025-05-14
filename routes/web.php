@@ -21,7 +21,7 @@ use App\Http\Middleware\isAdmin;
 */
 
 Route::get('/', function () {
-    return view('auth.register');
+    return view('auth.login');
 });
 
 Route::prefix('admin')->middleware('auth',isAdmin::class)->group(function(){

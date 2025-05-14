@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\dana;
 use App\Models\pengeluaran;
+use Illuminate\Support\Facades\Auth;
 
 class PengeluaranController extends Controller
 {
@@ -19,8 +20,8 @@ class PengeluaranController extends Controller
     }
     public function index()
     {
-        $pengeluaran = pengeluaran::all();
-        $dana = dana::all();
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
         return view('pengeluaran.index', compact('dana','pengeluaran'));
     }
 
@@ -31,8 +32,8 @@ class PengeluaranController extends Controller
      */
     public function create()
     {
-        $pengeluaran = pengeluaran::all();
-        $dana = dana::all();
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
         return view('pengeluaran.create', compact('dana','pengeluaran'));
     }
 
@@ -48,12 +49,20 @@ class PengeluaranController extends Controller
             'deskripsi' => 'required',
             'jumlah' => 'required',
             'id_dana' => 'required',
+            'tanggal' => 'required'
         ]);
         $pengeluaran = new pengeluaran();
         $pengeluaran->deskripsi= $request->deskripsi ;
         $pengeluaran->jumlah = $request->jumlah ;
         $pengeluaran->id_dana = $request->id_dana ;
+        $pengeluaran->tanggal = $request->tanggal ;
+        $pengeluaran->id_user = Auth::id();
+        $pengeluaran->created_at = now();
         $pengeluaran->save();
+
+        $dana = Dana::findOrFail($request->id_dana);
+        $dana->saldo -= $request->jumlah;
+        $dana->save();
 
         return redirect()->route('pengeluaran.index')->with('success','Data Berhasil Ditambahkan');
     }
@@ -66,9 +75,9 @@ class PengeluaranController extends Controller
      */
     public function show($id)
     {
-        $pengeluaran =pengeluaran::FindOrFail($id);
-        $dana = dana::all();
-        
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
+
         return view('pengeluaran.show', compact('pengeluaran','dana'));
     }
 
@@ -80,9 +89,9 @@ class PengeluaranController extends Controller
      */
     public function edit($id)
     {
-        $pengeluaran =pengeluaran::FindOrFail($id);
-        $dana = dana::all();
-        
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
+
         return view('pengeluaran.edit', compact('pengeluaran','dana'));
     }
 
@@ -99,11 +108,13 @@ class PengeluaranController extends Controller
             'deskripsi' => 'required',
             'jumlah' => 'required',
             'id_dana' => 'required',
+            'tanggal' => 'required'
         ]);
-        $pengeluaran =pengeluaran::FindOrFail($id);
+        $pengeluaran =pengeluaran::where('id',$id)->where('id_user', Auth::id())->firstorfail();
         $pengeluaran->deskripsi= $request->deskripsi ;
         $pengeluaran->jumlah = $request->jumlah ;
         $pengeluaran->id_dana = $request->id_dana ;
+        $pengeluaran->tanggal = $request->tanggal ;
         $pengeluaran->save();
 
         return redirect()->route('pengeluaran.index')->with('success','Data Berhasil Diubah');
@@ -117,8 +128,8 @@ class PengeluaranController extends Controller
      */
     public function destroy($id)
     {
-        $pengeluaran = pengeluaran::findOrFail($id);
-        $pengeluaran->delete();
+        $dana = dana::where('id_user', Auth::id())->get();
+        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
         return redirect()->route('pengeluaran.index')->with('success','Data Berhasil Dihapus');
     }
 }

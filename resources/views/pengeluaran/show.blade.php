@@ -132,6 +132,10 @@
                                     @endforeach
                                 </select>
                             </div>
+                            <div class="form-group mb-3">
+                                <label class="form-label">Tanggal</label>
+                                <input type="date" placeholder="Masukan tanggal" disabled value="{{ $pengeluaran->tanggal }}" name="tanggal" class="form-control">
+                            </div>
                             <a href="{{ route('pengeluaran.index') }}" class="btn btn-danger">Back</a>
 
                         </form>

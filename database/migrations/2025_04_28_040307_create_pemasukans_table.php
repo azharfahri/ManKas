@@ -20,6 +20,9 @@ return new class extends Migration
             $table->integer('jumlah');
             $table->foreign('id_dana')->references('id')->on('danas')->onDelete('cascade');
             $table->unsignedBigInteger('id_dana');
+            $table->date('tanggal');
+            $table->foreign('id_user')->references('id')->on('users')->onDelete('cascade');
+            $table->unsignedBigInteger('id_user');
             $table->timestamps();
         });
     }
