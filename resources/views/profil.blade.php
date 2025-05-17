@@ -115,9 +115,12 @@
 
 
                             <div class="text-center mt-4">
-                                <h5>
+                                <h3>
                                     {{ Auth::user()->name }}
-                                </h5>
+                                </h3>
+                                <h6>
+                                    {{ Auth::user()->username }}
+                                </h6>
                                 <div class="h6 font-weight-300">
                                     <i class="ni location_pin mr-2"></i>{{ Auth::user()->alamat }}
                                 </div>

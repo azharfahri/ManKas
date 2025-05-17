@@ -76,7 +76,7 @@ class PengeluaranController extends Controller
     public function show($id)
     {
         $dana = dana::where('id_user', Auth::id())->get();
-        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
+        $pengeluaran =pengeluaran::where('id',$id)->where('id_user', Auth::id())->firstorfail();
 
         return view('pengeluaran.show', compact('pengeluaran','dana'));
     }
@@ -90,7 +90,8 @@ class PengeluaranController extends Controller
     public function edit($id)
     {
         $dana = dana::where('id_user', Auth::id())->get();
-        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
+        $pengeluaran =pengeluaran::where('id',$id)->where('id_user', Auth::id())->firstorfail();
+
 
         return view('pengeluaran.edit', compact('pengeluaran','dana'));
     }
@@ -106,18 +107,40 @@ class PengeluaranController extends Controller
     {
         $request->validate([
             'deskripsi' => 'required',
-            'jumlah' => 'required',
+            'jumlah' => 'required|numeric',
             'id_dana' => 'required',
             'tanggal' => 'required'
         ]);
-        $pengeluaran =pengeluaran::where('id',$id)->where('id_user', Auth::id())->firstorfail();
-        $pengeluaran->deskripsi= $request->deskripsi ;
-        $pengeluaran->jumlah = $request->jumlah ;
-        $pengeluaran->id_dana = $request->id_dana ;
-        $pengeluaran->tanggal = $request->tanggal ;
+
+        $pengeluaran = pengeluaran::where('id', $id)->where('id_user', Auth::id())->firstOrFail();
+
+
+        if ($pengeluaran->id_dana != $request->id_dana) {
+            // Ambil dana lama & kurangi saldo
+            $danaLama = Dana::findOrFail($pengeluaran->id_dana);
+            $danaLama->saldo -= $pengeluaran->jumlah;
+            $danaLama->save();
+
+            // Ambil dana baru & tambahkan saldonya
+            $danaBaru = Dana::findOrFail($request->id_dana);
+            $danaBaru->saldo -= $request->jumlah;
+            $danaBaru->save();
+        } else {
+            // id_dana sama, cukup hitung selisih saldo
+            $dana = Dana::findOrFail($pengeluaran->id_dana);
+            $selisih = $request->jumlah - $pengeluaran->jumlah;
+            $dana->saldo -= $selisih;
+            $dana->save();
+        }
+
+        // Update data pengeluaran
+        $pengeluaran->deskripsi = $request->deskripsi;
+        $pengeluaran->jumlah = $request->jumlah;
+        $pengeluaran->id_dana = $request->id_dana;
+        $pengeluaran->tanggal = $request->tanggal;
         $pengeluaran->save();
 
-        return redirect()->route('pengeluaran.index')->with('success','Data Berhasil Diubah');
+        return redirect()->route('pengeluaran.index')->with('success', 'Data Berhasil Diubah');
     }
 
     /**
@@ -129,7 +152,8 @@ class PengeluaranController extends Controller
     public function destroy($id)
     {
         $dana = dana::where('id_user', Auth::id())->get();
-        $pengeluaran = pengeluaran::where('id_user', Auth::id())->get();
+        $pengeluaran =pengeluaran::where('id',$id)->where('id_user', Auth::id())->firstorfail();
+        $pengeluaran->delete();
         return redirect()->route('pengeluaran.index')->with('success','Data Berhasil Dihapus');
     }
 }

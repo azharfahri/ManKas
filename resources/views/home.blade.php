@@ -90,62 +90,62 @@
             <div class="row mt-4">
 
                 <div class="col-md-7 mt-4">
-    <div class="card">
-        <div class="card-header pb-0 px-3">
-            <h6 class="mb-0">Informasi Keuangan per Dompet</h6>
-        </div>
-        <div class="card-body pt-4 p-3">
-            <ul class="list-group">
+                    <div class="card">
+                        <div class="card-header pb-0 px-3">
+                            <h6 class="mb-0">Informasi Keuangan per Dompet</h6>
+                        </div>
+                        <div class="card-body pt-4 p-3">
+                            <ul class="list-group">
 
-                @foreach($dataDana as $dana)
-                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                    <div class="d-flex flex-column w-100">
-                        <h6 class="mb-3 text-sm">{{ $dana['nama_dana'] }}</h6>
-                        <span class="mb-2 text-xs">Total Pemasukan:
-                            <span class="text-dark font-weight-bold ms-sm-2">
-                                Rp{{ number_format($dana['total_pemasukan']) }}
-                            </span>
-                        </span>
-                        <span class="mb-2 text-xs">Total Pengeluaran:
-                            <span class="text-dark font-weight-bold ms-sm-2">
-                                Rp{{ number_format($dana['total_pengeluaran']) }}
-                            </span>
-                        </span>
-                        <span class="text-xs">Saldo Akhir:
-                            <span class="text-dark font-weight-bold ms-sm-2">
-                                Rp{{ number_format($dana['saldo']) }}
-                            </span>
-                        </span>
+                                @foreach ($dataDana as $dana)
+                                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                        <div class="d-flex flex-column w-100">
+                                            <h6 class="mb-3 text-sm">{{ $dana['nama_dana'] }}</h6>
+                                            
+                                            <span class="mb-2 text-xs">Total Pemasukan:
+                                                <span class="text-dark font-weight-bold ms-sm-2">
+                                                    Rp{{ number_format($dana['total_pemasukan']) }}
+                                                </span>
+                                            </span>
+                                            <span class="mb-2 text-xs">Total Pengeluaran:
+                                                <span class="text-dark font-weight-bold ms-sm-2">
+                                                    Rp{{ number_format($dana['total_pengeluaran']) }}
+                                                </span>
+                                            </span>
+                                            <span class="text-xs">Saldo Akhir:
+                                                <span class="text-dark font-weight-bold ms-sm-2">
+                                                    Rp{{ number_format($dana['saldo']) }}
+                                                </span>
+                                            </span>
+                                        </div>
+                                    </li>
+                                @endforeach
+
+                                @if (count($dataDana) == 0)
+                                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                        <div class="d-flex flex-column w-100 text-center">
+                                            <span class="text-sm text-muted">Belum ada data dompet, Tambahkan dompet dahulu </span>
+                                        </div>
+                                    </li>
+                                @endif
+
+                            </ul>
+                        </div>
                     </div>
-                </li>
-                @endforeach
-
-                @if(count($dataDana) == 0)
-                <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                    <div class="d-flex flex-column w-100 text-center">
-                        <span class="text-sm text-muted">Belum ada data dompet </span>
-                    </div>
-                </li>
-                @endif
-
-            </ul>
-        </div>
-    </div>
-</div>
+                </div>
 
 
                 <div class="col-md-5 mt-4">
                     <div class="card h-100 mb-4">
                         <div class="card-header pb-0 px-3">
                             <div class="row">
-                                <h6 class="mb-0">Aktivitas keuangan</h6>
+                                <h4 class="mb-0">Aktivitas keuangan</h4>
                             </div>
                         </div>
                         <div class="card-body pt-4 p-3">
                             <ul class="list-group">
                                 <h6>Pemasukan</h6>
                                 @foreach ($pemasukan as $data)
-
                                     <li
                                         class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                         <div class="d-flex align-items-center">
@@ -163,10 +163,8 @@
                                         </div>
                                     </li>
                                 @endforeach
-
                                 <h6>Pengeluaran</h6>
                                 @foreach ($pengeluaran as $data)
-
                                     <li
                                         class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
                                         <div class="d-flex align-items-center">
@@ -184,6 +182,8 @@
                                         </div>
                                     </li>
                                 @endforeach
+
+
 
                             </ul>
 
