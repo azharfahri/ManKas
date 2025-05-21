@@ -49,149 +49,262 @@
         <!-- Navbar -->
         @include('layouts.part.navbar')
         <!-- End Navbar -->
-        <div class="container-fluid py-4">
-            @yield('content')
+        {{-- ini tampilan user --}}
+        @if (Auth::user()->is_admin === 0)
+            <div class="container-fluid py-4">
+                @yield('content')
 
-            <h3 class="mb-3 text-white">Dompet</h3>
+                <h3 class="mb-3 text-white">Dompet</h3>
 
-            <div class="d-flex overflow-auto" style="white-space: nowrap;">
-                @php $no = 1; @endphp
-                @foreach ($dataDana as $data)
-                    <div class="card me-3 bg-transparent shadow-xl" style="min-width: 350px">
-                        <div class="overflow-hidden position-relative border-radius-xl"
-                            style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/card-visa.jpg');">
-                            <span class="mask bg-gradient-dark"></span>
-                            <div class="card-body position-relative z-index-1 p-3">
-                                <i class="fas fa-wifi text-white p-2"></i>
-                                <h5 class="text-white mt-4 mb-1 pb-2">{{ $data['nama_dana'] }}</h5>
-                                <p class="text-white">Saldo : Rp. {{ number_format($data['saldo']) }}</p>
-                                <div class="d-flex">
+                <div class="d-flex overflow-auto" style="white-space: nowrap;">
+                    @php $no = 1; @endphp
+                    @foreach ($dataDana as $data)
+                        <div class="card me-3 bg-transparent shadow-xl" style="min-width: 350px">
+                            <div class="overflow-hidden position-relative border-radius-xl"
+                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/card-visa.jpg');">
+                                <span class="mask bg-gradient-dark"></span>
+                                <div class="card-body position-relative z-index-1 p-3">
+                                    <i class="fas fa-wifi text-white p-2"></i>
+                                    <h5 class="text-white mt-4 mb-1 pb-2">{{ $data['nama_dana'] }}</h5>
+                                    <p class="text-white">Saldo : Rp. {{ number_format($data['saldo']) }}</p>
                                     <div class="d-flex">
-                                        <div class="me-4">
-                                            <p class="text-white text-sm opacity-8 mb-0">Pemilik Dompet</p>
-                                            <h6 class="text-white mb-0">{{ Auth::user()->username }}</h6>
+                                        <div class="d-flex">
+                                            <div class="me-4">
+                                                <p class="text-white text-sm opacity-8 mb-0">Pemilik Dompet</p>
+                                                <h6 class="text-white mb-0">{{ Auth::user()->username }}</h6>
+                                            </div>
+                                            <div>
+                                                <p class="text-white text-sm opacity-8 mb-0">tanggal</p>
+                                                <h6 class="text-white mb-0">{{ $data['tanggal'] }}</h6>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p class="text-white text-sm opacity-8 mb-0">tanggal</p>
-                                            <h6 class="text-white mb-0">{{ $data['tanggal'] }}</h6>
+                                        <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
+                                            <img class="w-60 mt-2" src="{{ asset('admin/img/logos/mastercard.png') }}"
+                                                alt="logo">
                                         </div>
                                     </div>
-                                    <div class="ms-auto w-20 d-flex align-items-end justify-content-end">
-                                        <img class="w-60 mt-2" src="{{ asset('admin/img/logos/mastercard.png') }}"
-                                            alt="logo">
+                                </div>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
+                <div class="row mt-4">
+
+                    <div class="col-md-7 mt-4">
+                        <div class="card">
+                            <div class="card-header pb-0 px-3">
+                                <h6 class="mb-0">Informasi Keuangan per Dompet</h6>
+                            </div>
+                            <div class="card-body pt-4 p-3">
+                                <ul class="list-group">
+
+                                    @foreach ($dataDana as $dana)
+                                        <li
+                                            class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                            <div class="d-flex flex-column w-100">
+                                                <h6 class="mb-3 text-sm">{{ $dana['nama_dana'] }}</h6>
+
+                                                <span class="mb-2 text-xs">Total Pemasukan:
+                                                    <span class="text-dark font-weight-bold ms-sm-2">
+                                                        Rp{{ number_format($dana['total_pemasukan']) }}
+                                                    </span>
+                                                </span>
+                                                <span class="mb-2 text-xs">Total Pengeluaran:
+                                                    <span class="text-dark font-weight-bold ms-sm-2">
+                                                        Rp{{ number_format($dana['total_pengeluaran']) }}
+                                                    </span>
+                                                </span>
+                                                <span class="text-xs">Saldo Akhir:
+                                                    <span class="text-dark font-weight-bold ms-sm-2">
+                                                        Rp{{ number_format($dana['saldo']) }}
+                                                    </span>
+                                                </span>
+                                            </div>
+                                        </li>
+                                    @endforeach
+
+                                    @if (count($dataDana) == 0)
+                                        <li
+                                            class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
+                                            <div class="d-flex flex-column w-100 text-center">
+                                                <span class="text-sm text-muted">Belum ada data dompet, Tambahkan dompet
+                                                    dahulu </span>
+                                            </div>
+                                        </li>
+                                    @endif
+
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-5 mt-4">
+                        <div class="card h-100 mb-4">
+                            <div class="card-header pb-0 px-3">
+                                <div class="row">
+                                    <h4 class="mb-0">Aktivitas keuangan</h4>
+                                </div>
+                            </div>
+                            <div class="card-body pt-4 p-3">
+                                <ul class="list-group">
+                                    <h6>Pemasukan</h6>
+                                    @foreach ($pemasukan as $data)
+                                        <li
+                                            class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                            <div class="d-flex align-items-center">
+                                                <button
+                                                    class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                                        class="fas fa-arrow-up"></i></button>
+                                                <div class="d-flex flex-column">
+                                                    <h6 class="mb-1 text-dark text-sm">{{ $data->deskripsi }}</h6>
+                                                    <span class="text-xs">{{ $data->tanggal }}</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
+                                                + Rp{{ number_format($data->jumlah) }}
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                    <h6>Pengeluaran</h6>
+                                    @foreach ($pengeluaran as $data)
+                                        <li
+                                            class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
+                                            <div class="d-flex align-items-center">
+                                                <button
+                                                    class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
+                                                        class="fas fa-arrow-down"></i></button>
+                                                <div class="d-flex flex-column">
+                                                    <h6 class="mb-1 text-dark text-sm">{{ $data->deskripsi }}</h6>
+                                                    <span class="text-xs">{{ $data->tanggal }}</span>
+                                                </div>
+                                            </div>
+                                            <div
+                                                class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
+                                                - Rp{{ number_format($data->jumlah) }}
+                                            </div>
+                                        </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @endif
+        {{--  akhir tampilan user --}}
+        {{-- tapilan admin --}}
+        @if (Auth::user()->is_admin === 1)
+            <div class="container-fluid py-4">
+                <h2 class="mb-3 text-white">Data Pengguna</h2>
+
+                <div class="row">
+                    <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers">
+                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Total saldo seluruh
+                                                pengguna</p>
+                                            <h5 class="font-weight-bolder">
+                                                Rp. {{ number_format($totsaldo) }}
+                                            </h5>
+                                        </div>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <div
+                                            class="icon icon-shape bg-gradient-primary shadow-primary text-center rounded-circle">
+                                            <i class="ni ni-money-coins text-lg opacity-10" aria-hidden="true"></i>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                @endforeach
-            </div>
-
-            <div class="row mt-4">
-
-                <div class="col-md-7 mt-4">
-                    <div class="card">
-                        <div class="card-header pb-0 px-3">
-                            <h6 class="mb-0">Informasi Keuangan per Dompet</h6>
-                        </div>
-                        <div class="card-body pt-4 p-3">
-                            <ul class="list-group">
-
-                                @foreach ($dataDana as $dana)
-                                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                                        <div class="d-flex flex-column w-100">
-                                            <h6 class="mb-3 text-sm">{{ $dana['nama_dana'] }}</h6>
-                                            
-                                            <span class="mb-2 text-xs">Total Pemasukan:
-                                                <span class="text-dark font-weight-bold ms-sm-2">
-                                                    Rp{{ number_format($dana['total_pemasukan']) }}
-                                                </span>
-                                            </span>
-                                            <span class="mb-2 text-xs">Total Pengeluaran:
-                                                <span class="text-dark font-weight-bold ms-sm-2">
-                                                    Rp{{ number_format($dana['total_pengeluaran']) }}
-                                                </span>
-                                            </span>
-                                            <span class="text-xs">Saldo Akhir:
-                                                <span class="text-dark font-weight-bold ms-sm-2">
-                                                    Rp{{ number_format($dana['saldo']) }}
-                                                </span>
-                                            </span>
+                    <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
+                        <div class="card">
+                            <div class="card-body p-3">
+                                <div class="row">
+                                    <div class="col-8">
+                                        <div class="numbers">
+                                            <p class="text-sm mb-0 text-uppercase font-weight-bold">Jumlah Pengguna</p>
+                                            <h5 class="font-weight-bolder">
+                                                {{ $totuser }}
+                                            </h5>
                                         </div>
-                                    </li>
-                                @endforeach
-
-                                @if (count($dataDana) == 0)
-                                    <li class="list-group-item border-0 d-flex p-4 mb-2 bg-gray-100 border-radius-lg">
-                                        <div class="d-flex flex-column w-100 text-center">
-                                            <span class="text-sm text-muted">Belum ada data dompet, Tambahkan dompet dahulu </span>
+                                    </div>
+                                    <div class="col-4 text-end">
+                                        <div
+                                            class="icon icon-shape bg-gradient-danger shadow-danger text-center rounded-circle">
+                                            <i class="ni ni-world text-lg opacity-10" aria-hidden="true"></i>
                                         </div>
-                                    </li>
-                                @endif
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="col-md-5 mt-4">
-                    <div class="card h-100 mb-4">
-                        <div class="card-header pb-0 px-3">
-                            <div class="row">
-                                <h4 class="mb-0">Aktivitas keuangan</h4>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                        <div class="card-body pt-4 p-3">
-                            <ul class="list-group">
-                                <h6>Pemasukan</h6>
-                                @foreach ($pemasukan as $data)
-                                    <li
-                                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex align-items-center">
-                                            <button
-                                                class="btn btn-icon-only btn-rounded btn-outline-success mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
-                                                    class="fas fa-arrow-up"></i></button>
-                                            <div class="d-flex flex-column">
-                                                <h6 class="mb-1 text-dark text-sm">{{ $data->deskripsi }}</h6>
-                                                <span class="text-xs">{{ $data->tanggal }}</span>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="d-flex align-items-center text-success text-gradient text-sm font-weight-bold">
-                                            + Rp{{ number_format($data->jumlah) }}
-                                        </div>
-                                    </li>
-                                @endforeach
-                                <h6>Pengeluaran</h6>
-                                @foreach ($pengeluaran as $data)
-                                    <li
-                                        class="list-group-item border-0 d-flex justify-content-between ps-0 mb-2 border-radius-lg">
-                                        <div class="d-flex align-items-center">
-                                            <button
-                                                class="btn btn-icon-only btn-rounded btn-outline-danger mb-0 me-3 btn-sm d-flex align-items-center justify-content-center"><i
-                                                    class="fas fa-arrow-down"></i></button>
-                                            <div class="d-flex flex-column">
-                                                <h6 class="mb-1 text-dark text-sm">{{ $data->deskripsi }}</h6>
-                                                <span class="text-xs">{{ $data->tanggal }}</span>
-                                            </div>
-                                        </div>
-                                        <div
-                                            class="d-flex align-items-center text-danger text-gradient text-sm font-weight-bold">
-                                            - Rp{{ number_format($data->jumlah) }}
-                                        </div>
-                                    </li>
-                                @endforeach
-
-
-
-                            </ul>
-
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-12 mt-2">
+                        <div class="card mb-4">
+                            <div class="card-header pb-0">
+                                <h4 class="mb-0">Informasi Pengguna</h4>
+                            </div>
+                            <div class="card-body px-0 pt-0 pb-2">
+                                <div class="table-responsive p-3">
+                                    <table class="table align-items-center mb-0">
+                                        <thead class="bg-light">
+                                            <tr align="center">
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder">No
+                                                </th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder">
+                                                    Nama</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder">
+                                                    Dompet</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder">
+                                                    Saldo</th>
+                                                <th class="text-uppercase text-secondary text-xs font-weight-bolder">
+                                                    Tanggal Pembuatan Akun</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @php $no = 1; @endphp
+                                            @foreach ($user as $data)
+                                                <tr align="center">
+                                                    <td>
+                                                        <p class="text-sm mb-0">{{ $no++ }}</p>
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-sm font-weight-bold mb-0">{{ $data->name }}
+                                                        </p>
+                                                    </td>
+                                                    <td>
+                                                        @foreach ($data->dana as $d)
+                                                            <p class="text-sm mb-0">{{ $d->nama_dana }}</p>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                        @foreach ($data->dana as $d)
+                                                            <p class="text-sm mb-0">{{ number_format($d->saldo) }}</p>
+                                                        @endforeach
+                                                    </td>
+                                                    <td>
+                                                        <p class="text-sm mb-0">{{ $data->created_at }}</p>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
             </div>
-        </div>
+        @endif
+        {{-- akhir tampilan admin --}}
         </div>
 
 

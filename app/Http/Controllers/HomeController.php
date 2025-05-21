@@ -28,15 +28,19 @@ class HomeController extends Controller
      */
     public function index()
 {
+    $user = user::with('dana')->get();
     $iduser = Auth::id();
+
+    $dana2= dana::all();
+    $totsaldo = $dana2->sum('saldo');
+    $totuser = $user->count();
 
     // Ambil data
     $dana = dana::where('id_user', $iduser)->get();
     $pemasukan = pemasukan::where('id_user', $iduser)->orderBy('tanggal', 'desc')->get();
     $pengeluaran = pengeluaran::where('id_user', $iduser)->orderBy('tanggal', 'desc')->get();
 
-    // $aktivitas1 = ($pemasukan)->sortByDesc('tanggal');
-    // $aktivitas2 = ($pengeluaran)->sortByDesc('tanggal');
+
 
 
     // Buat array
@@ -57,12 +61,12 @@ class HomeController extends Controller
             'total_pemasukan' => $totalPemasukan,
             'total_pengeluaran' => $totalPengeluaran,
             'saldo' => $dompet->saldo,
-            
+
             'tanggal' => $dompet->created_at->format('d M Y')
         ];
     }
 
-    return view('home', compact('dataDana','pemasukan','pengeluaran'));
+    return view('home', compact('dataDana','pemasukan','pengeluaran','user','totsaldo','totuser'));
 }
 
 

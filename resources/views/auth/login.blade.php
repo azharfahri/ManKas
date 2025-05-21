@@ -120,8 +120,7 @@
                         <div
                             class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
                             <div class="position-relative bg-gradient-dark h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                                style="background-image: url('{{ asset('admin/gambar/uang2.jpg') }}');
-          background-size: cover;">
+                                style="background-image: url('{{ asset('admin/gambar/uang2.jpg') }}');background-size: cover;">
                                 <span class="mask bg-gradient-dark opacity-6"></span>
                                 <h4 class="mt-5 text-white font-weight-bolder position-relative">"Ingat sebelum kena,
                                     hemat sebelum habis"</h4>

@@ -37,7 +37,7 @@ class User extends Authenticatable
 }
 
     public function dana (){
-        return $this->hasMany(dana::class);
+        return $this->hasMany(dana::class, 'id_user');
     }
 
     /**
