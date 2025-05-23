@@ -6,6 +6,7 @@ use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
 use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\isAdmin;
 
 
@@ -21,8 +22,9 @@ use App\Http\Middleware\isAdmin;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return Auth::check() ? redirect('/home') : view('auth.login');
 });
+
 
 Route::prefix('admin')->middleware('auth',isAdmin::class)->group(function(){
     Route::resource('dana', DanaController::class);
