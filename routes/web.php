@@ -1,10 +1,8 @@
 <?php
 
 use App\Http\Controllers\DanaController;
-use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PemasukanController;
 use App\Http\Controllers\PengeluaranController;
-use App\Http\Controllers\TransaksiController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Middleware\isAdmin;
@@ -26,7 +24,7 @@ Route::get('/', function () {
 });
 
 
-Route::prefix('admin')->middleware('auth',isAdmin::class)->group(function(){
+Route::prefix('user')->middleware('auth',isAdmin::class)->group(function(){
     Route::resource('dana', DanaController::class);
 
     Route::resource('pemasukan', PemasukanController::class);

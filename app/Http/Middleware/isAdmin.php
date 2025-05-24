@@ -17,8 +17,8 @@ class isAdmin
      */
     public function handle(Request $request, Closure $next)
     {
-        if ($request->routeIs('home.*')&& Auth::user()->is_admin !==1) {
-            abort(403,'Anda hitam');
+        if ($request->routeIs('home.*','dana.*','pemasukan.*','pengeluaran.*')&& Auth::user()->is_admin !==0) {
+            abort(403,'not found');
         }
         return $next($request);
     }
