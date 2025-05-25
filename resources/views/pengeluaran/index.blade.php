@@ -30,6 +30,9 @@
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
 
@@ -243,27 +246,19 @@
                 </a>
                 <!-- Sidenav Type -->
                 <div class="mt-3">
-                    <h6 class="mb-0">Sidenav Type</h6>
-                    <p class="text-sm">Choose between 2 different sidenav types.</p>
+                    <h6 class="mb-0">Tipe Sidenav</h6>
+                    <p class="text-sm">Pilih 2 tipe berbeda</p>
                 </div>
                 <div class="d-flex">
                     <button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white"
-                        onclick="sidebarType(this)">White</button>
+                        onclick="sidebarType(this)">Cerah</button>
                     <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default"
-                        onclick="sidebarType(this)">Dark</button>
+                        onclick="sidebarType(this)">Gelap</button>
                 </div>
                 <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-                <!-- Navbar Fixed -->
-                <div class="d-flex my-3">
-                    <h6 class="mb-0">Navbar Fixed</h6>
-                    <div class="form-check form-switch ps-0 ms-auto my-auto">
-                        <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
-                            onclick="navbarFixed(this)">
-                    </div>
-                </div>
                 <hr class="horizontal dark my-sm-4">
                 <div class="mt-2 mb-5 d-flex">
-                    <h6 class="mb-0">Light / Dark</h6>
+                    <h6 class="mb-0">Cerah / Gelap</h6>
                     <div class="form-check form-switch ps-0 ms-auto my-auto">
                         <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version"
                             onclick="darkMode(this)">

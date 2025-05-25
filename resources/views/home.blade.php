@@ -30,6 +30,9 @@
     <link href="https://demos.creative-tim.com/argon-dashboard-pro/assets/css/nucleo-svg.css" rel="stylesheet" />
     <!-- Font Awesome Icons -->
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
     <!-- CSS Files -->
     <link id="pagestyle" href="../assets/css/argon-dashboard.css?v=2.1.0" rel="stylesheet" />
 
@@ -40,7 +43,7 @@
     <link href="{{ asset('admin/css/nucleo-svg.css') }}" rel="stylesheet">
 </head>
 
-<body class="g-sidenav-show   bg-gray-100">
+<body class="g-sidenav-show   bg-gray-100 ">
     <div class="min-height-300 bg-dark position-absolute w-100"></div>
 
     @include('layouts.part.sidebar')
@@ -200,8 +203,8 @@
 
                 <div class="row">
                     <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
-                        <div class="card">
-                            <div class="card-body p-3">
+                        <div class="card dark-version">
+                            <div class="card-body p-3 ">
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="numbers">
@@ -223,7 +226,7 @@
                         </div>
                     </div>
                     <div class="col-xl-6 col-sm-6 mb-xl-0 mb-4">
-                        <div class="card">
+                        <div class="card dark-version">
                             <div class="card-body p-3">
                                 <div class="row">
                                     <div class="col-8">
@@ -352,27 +355,19 @@
                 </a>
                 <!-- Sidenav Type -->
                 <div class="mt-3">
-                    <h6 class="mb-0">Sidenav Type</h6>
-                    <p class="text-sm">Choose between 2 different sidenav types.</p>
+                    <h6 class="mb-0">Tipe Sidenav</h6>
+                    <p class="text-sm">Pilih 2 tipe berbeda</p>
                 </div>
                 <div class="d-flex">
                     <button class="btn bg-gradient-primary w-100 px-3 mb-2 active me-2" data-class="bg-white"
-                        onclick="sidebarType(this)">White</button>
+                        onclick="sidebarType(this)">Cerah</button>
                     <button class="btn bg-gradient-primary w-100 px-3 mb-2" data-class="bg-default"
-                        onclick="sidebarType(this)">Dark</button>
+                        onclick="sidebarType(this)">Gelap</button>
                 </div>
                 <p class="text-sm d-xl-none d-block mt-2">You can change the sidenav type just on desktop view.</p>
-                <!-- Navbar Fixed -->
-                <div class="d-flex my-3">
-                    <h6 class="mb-0">Navbar Fixed</h6>
-                    <div class="form-check form-switch ps-0 ms-auto my-auto">
-                        <input class="form-check-input mt-1 ms-auto" type="checkbox" id="navbarFixed"
-                            onclick="navbarFixed(this)">
-                    </div>
-                </div>
                 <hr class="horizontal dark my-sm-4">
                 <div class="mt-2 mb-5 d-flex">
-                    <h6 class="mb-0">Light / Dark</h6>
+                    <h6 class="mb-0">Cerah / Gelap</h6>
                     <div class="form-check form-switch ps-0 ms-auto my-auto">
                         <input class="form-check-input mt-1 ms-auto" type="checkbox" id="dark-version"
                             onclick="darkMode(this)">
@@ -386,6 +381,8 @@
     <!--   Core JS Files   -->
     <script src="{{ asset('admin/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('admin/js/core/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('admin/js/core/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('admin/js/plugins/bootstrap-notify.js') }}"></script>
     <script src="{{ asset('admin/js/plugins/perfect-scrollbar.min.js') }}"></script>
     <script src="{{ asset('admin/js/plugins/smooth-scrollbar.min.js') }}"></script>
     <script src="{{ asset('admin/js/plugins/chartjs.min.js') }}"></script>
@@ -486,6 +483,8 @@
     <script async defer src="https://buttons.github.io/buttons.js"></script>
     <!-- Control Center for Soft Dashboard: parallax effects, scripts for the example pages etc -->
     <script src="../assets/js/argon-dashboard.min.js?v=2.1.0"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
 
     <script src="{{ asset('admin/js/argon-dashboard.min.js') }}"></script>
     <script src="{{ asset('admin/js/argon-dashboard.js') }}"></script>
