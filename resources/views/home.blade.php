@@ -51,7 +51,8 @@
     <main class="main-content position-relative border-radius-lg ">
         <!-- Navbar -->
         @include('layouts.part.navbar')
-        <!-- End Navbar -->
+        <!--  Navbar -->
+
         {{-- ini tampilan user --}}
         @if (Auth::user()->is_admin === 0)
             <div class="container-fluid py-4">
@@ -196,6 +197,7 @@
             </div>
         @endif
         {{--  akhir tampilan user --}}
+
         {{-- tapilan admin --}}
         @if (Auth::user()->is_admin === 1)
             <div class="container-fluid py-4">
@@ -309,11 +311,9 @@
         @endif
         {{-- akhir tampilan admin --}}
         </div>
-
-
-
-
     </main>
+
+    {{-- kustom tampilan --}}
     <div class="fixed-plugin">
         <a class="fixed-plugin-button text-light position-fixed px-3 py-2">
             <i class="fa fa-cog py-2"> </i>
@@ -378,6 +378,7 @@
             </div>
         </div>
     </div>
+
     <!--   Core JS Files   -->
     <script src="{{ asset('admin/js/core/popper.min.js') }}"></script>
     <script src="{{ asset('admin/js/core/bootstrap.min.js') }}"></script>
